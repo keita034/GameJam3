@@ -4,7 +4,7 @@
 
 #include"Config.h"
 #include"Field.h"
-
+#include "Input.h"
 
 // ウィンドウのタイトルに表示する文字列
 const char TITLE[] = "タイトル";
@@ -43,23 +43,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	std::unique_ptr<Field> field = std::make_unique<Field>();
 	field->Init();
+	std::unique_ptr<Input> input = std::make_unique<Input>();
 
-	// 最新のキーボード情報用
-	char keys[256] = {0};
-
-	// 1ループ(フレーム)前のキーボード情報
-	char oldkeys[256] = {0};
 
 	// ゲームループ
 	while (true) {
-		// 最新のキーボード情報だったものは1フレーム前のキーボード情報として保存
-		for (int i = 0; i < 256; ++i)
-		{
-			oldkeys[i] = keys[i];
-		}
-		// 最新のキーボード情報を取得
-		GetHitKeyStateAll(keys);
-
+		
+		input->Update();
 		// 画面クリア
 		ClearDrawScreen();
 		//---------  ここからプログラムを記述  ----------//

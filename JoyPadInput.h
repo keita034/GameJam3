@@ -25,4 +25,3 @@ public:
 	int GetRightHorizontal();
 	int GetRightVertical();
 };
-extern JoyPadInput pad;

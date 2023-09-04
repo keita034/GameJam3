@@ -77,6 +77,7 @@
   <ItemGroup>
     <ClCompile Include="Ease.cpp" />
     <ClCompile Include="Field.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="JoyPadInput.cpp" />
     <ClCompile Include="KeyBoardInput.cpp" />
     <ClCompile Include="main.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="Ease.h" />
     <ClInclude Include="Field.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="JoyPadInput.h" />
     <ClInclude Include="KeyBoardInput.h" />
     <ClInclude Include="MouseInput.h" />

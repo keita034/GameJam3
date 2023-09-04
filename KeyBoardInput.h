@@ -12,4 +12,3 @@ public:
 	int GetHorizontal(int leftKey, int righKey);
 	int GetVertical(int downKey, int upkey);
 };
-extern KeyBoardInput key;

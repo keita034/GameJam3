@@ -13,4 +13,3 @@ public:
 	int GetMouseX();
 	int GetMouseY();
 };
-extern MouseInput mouse;
