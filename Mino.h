@@ -1,8 +1,5 @@
 #pragma once
-#include<array>
-
 #include"Config.h"
-#include"Int2.h"
 
 class Mino
 {
@@ -20,7 +17,7 @@ public:
 	/// <summary>
 	/// èâä˙âª
 	/// </summary>
-	void Init(const Int2& pos, MinoType type, int8_t rot = 0);
+	void Init(const Int2& pos, MinoType type, MinoColorType color, int8_t rot = 0);
 
 	/// <summary>
 	/// çXêV
@@ -43,6 +40,8 @@ public:
 
 	bool IsValid();
 
+	MinoColorType GetMinoColor();
+
 	enum BlockIndex
 	{
 		NUME,
@@ -50,12 +49,13 @@ public:
 	};
 
 private:
-	bool isValid = false;
-	bool isFall = false;
+	bool isValid_ = false;
+	bool isFall_ = false;
 	int32_t graceTime;
 	Int2 position_;
 	int32_t timer_ = 0;
 	int8_t pushCount_ = 0;
+	MinoColorType color_;
 	std::array<std::array<uint8_t, MINO_SIZE>, MINO_SIZE>mino_ = { {{0,0,0,0,0},{0,0,0,0,0},{1,1,1,1,1},{0,0,0,0,0},{0,0,0,0,0}} };
 };
 

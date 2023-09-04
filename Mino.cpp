@@ -17,19 +17,25 @@ void Mino::SetMino(size_t width, size_t height, int8_t value)
 	mino_[height][width] = value;
 }
 
-void Mino::Init(const Int2& pos, MinoType type, int8_t rot)
+void Mino::Init(const Int2& pos, MinoType type, MinoColorType color, int8_t rot)
 {
 	position_ = pos;
 	pushCount_ = 0;
 
-	isValid = true;
-	isFall = true;
+	isValid_ = true;
+	isFall_ = true;
 	graceTime = MINO_GRACE_TIME;
+	color_ = color;
+
+	for (int8_t i = 0; i < rot; i++)
+	{
+		Rotate();
+	}
 }
 
 void Mino::Update()
 {
-	if (isFall)
+	if (isFall_)
 	{
 		timer_++;
 
@@ -45,7 +51,7 @@ void Mino::Update()
 
 		if (graceTime <= 0)
 		{
-			isValid = false;
+			isValid_ = false;
 		}
 	}
 }
@@ -58,7 +64,7 @@ void Mino::Draw()
 		{
 			if (mino_[i][j] == BLOCK)
 			{
-				DrawBox(BLOCK_SIZE * (j - 2 + position_.x), BLOCK_SIZE * (i - 2 + position_.y), BLOCK_SIZE + BLOCK_SIZE * (j - 2 + position_.x), BLOCK_SIZE + BLOCK_SIZE * (i - 2 + position_.y), GetColor(255, 0, 0), true);
+				DrawBox(BLOCK_SIZE * (j - 2 + position_.x), BLOCK_SIZE * (i - 2 + position_.y), BLOCK_SIZE + BLOCK_SIZE * (j - 2 + position_.x), BLOCK_SIZE + BLOCK_SIZE * (i - 2 + position_.y), GetColor(200, 200, 200), true);
 			}
 		}
 	}
@@ -93,15 +99,20 @@ Int2 Mino::GetPosIndex(size_t width, size_t height)
 
 void Mino::Invalidate()
 {
-	isValid = false;
+	isValid_ = false;
 }
 
 void Mino::InvalidateFall()
 {
-	isFall = false;
+	isFall_ = false;
 }
 
 bool Mino::IsValid()
 {
-	return isValid;
+	return isValid_;
+}
+
+MinoColorType Mino::GetMinoColor()
+{
+	return color_;
 }

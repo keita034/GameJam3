@@ -14,8 +14,9 @@ void SceneManager::Init()
 void SceneManager::Update()
 {
 	input_->Update();
-	player_->UpData();
+
 	field_->Update();
+	player_->UpData();
 }
 
 void SceneManager::Draw()

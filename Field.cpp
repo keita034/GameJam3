@@ -6,10 +6,9 @@ void Field::Init()
 {
 	minos_ = std::make_unique<Mino>();
 	mino_ = minos_.get();
-	mino_->Init({ 5,5 }, I);
+	mino_->Init({ 5,5 }, I,GREEN,2);
 
 	Reset();
-	mino_->Rotate();
 }
 
 void Field::Update()
@@ -43,6 +42,14 @@ void Field::Draw()
 			else if (field_[i].line[j] == FieldBlockIndex::GREEN_BLOCK)
 			{
 				DrawBox(BLOCK_SIZE * j, BLOCK_SIZE * i, BLOCK_SIZE + BLOCK_SIZE * j, BLOCK_SIZE + BLOCK_SIZE * i, GetColor(0, 255, 0), true);
+			}
+			else if (field_[i].line[j] == FieldBlockIndex::RED_BLOCK)
+			{
+				DrawBox(BLOCK_SIZE * j, BLOCK_SIZE * i, BLOCK_SIZE + BLOCK_SIZE * j, BLOCK_SIZE + BLOCK_SIZE * i, GetColor(255, 0, 0), true);
+			}
+			else if (field_[i].line[j] == FieldBlockIndex::BLUE_BLOCK)
+			{
+				DrawBox(BLOCK_SIZE * j, BLOCK_SIZE * i, BLOCK_SIZE + BLOCK_SIZE * j, BLOCK_SIZE + BLOCK_SIZE * i, GetColor(0, 0, 255), true);
 			}
 		}
 	}
@@ -85,6 +92,14 @@ void Field::FieldReset()
 	}
 }
 
+void Field::Push()
+{
+	if (mino_)
+	{
+		mino_->Push();
+	}
+}
+
 int8_t Field::GetChipData(size_t width, size_t height)
 {
 	return field_[height + FRAME_HEIGHT].line[width + FRAME_WIDTH];
@@ -120,8 +135,24 @@ void Field::SetMino(Mino* mino)
 				if (mino->GetMino(j, i) == Mino::BlockIndex::BLOCK)
 				{
 					Int2 index = mino->GetPosIndex(j, i);
-					field_[index.y].line[index.x] = FieldBlockIndex::GREEN_BLOCK;
 					field_[index.y].blockCount++;
+					switch (mino->GetMinoColor())
+					{
+					case BLUE:
+						field_[index.y].line[index.x] = FieldBlockIndex::BLUE_BLOCK;
+						break;
+					case RED:
+						field_[index.y].line[index.x] = FieldBlockIndex::RED_BLOCK;
+						break;
+					case GREEN:
+						field_[index.y].line[index.x] = FieldBlockIndex::GREEN_BLOCK;
+						break;
+					case ORANGE:
+						break;
+					default:
+						break;
+					}
+
 				}
 			}
 		}

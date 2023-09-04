@@ -1,11 +1,7 @@
 #pragma once
-#include<array>
-
 #include"Config.h"
-#include"Int2.h"
 
 #include"Mino.h"
-#include<memory>
 
 struct Line
 {
@@ -42,6 +38,8 @@ public:
 	void Reset();
 
 	void FieldReset();
+
+	void Push();
 
 	/// <summary>
 	/// マップチップのデータ取得

@@ -5,6 +5,7 @@
 #include<vector>
 #include<list>
 #include<memory>
+#include"Int2.h"
 
 // ウィンドウ横幅
 const int32_t WIN_WIDTH = 1280;
@@ -45,9 +46,20 @@ enum FieldBlockIndex : int8_t
 	WALL,
 	GHOST_BLOCK,
 	GREEN_BLOCK,
+	RED_BLOCK,
+	BLUE_BLOCK,
 };
 
 enum MinoType
 {
 	I,
+};
+
+enum MinoColorType
+{
+	BLUE,
+	RED,
+	GREEN,
+	ORANGE,
+
 };
