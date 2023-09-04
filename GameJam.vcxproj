@@ -81,6 +81,7 @@
     <ClCompile Include="JoyPadInput.cpp" />
     <ClCompile Include="KeyBoardInput.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mino.cpp" />
     <ClCompile Include="MouseInput.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Vec2.cpp" />
@@ -92,6 +93,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="JoyPadInput.h" />
     <ClInclude Include="KeyBoardInput.h" />
+    <ClInclude Include="Mino.h" />
     <ClInclude Include="MouseInput.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Vec2.h" />
