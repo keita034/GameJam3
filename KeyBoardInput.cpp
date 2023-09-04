@@ -1,7 +1,6 @@
 #include "DxLib.h"
 #include "KeyBoardInput.h"
 
-KeyBoardInput key;
 
 // XVˆ—
 void KeyBoardInput::Update()

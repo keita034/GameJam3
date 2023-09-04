@@ -5,6 +5,7 @@
 #include"Config.h"
 #include"Field.h"
 #include "Input.h"
+#include "Player.h"
 
 // ウィンドウのタイトルに表示する文字列
 const char TITLE[] = "タイトル";
@@ -44,8 +45,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	std::unique_ptr<Field> field = std::make_unique<Field>();
 	field->Init();
 	std::unique_ptr<Input> input = std::make_unique<Input>();
-
-
+	std::unique_ptr<Player> player = std::make_unique<Player>();
+	player->Init();
+	player->SetInput(input.get());
 	// ゲームループ
 	while (true) {
 		
@@ -55,10 +57,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//---------  ここからプログラムを記述  ----------//
 
 		// 更新処理
+		player->UpData();
 		field->Update();
 
 		// 描画処理
 		field->Draw();
+		player->Draw();
 
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面

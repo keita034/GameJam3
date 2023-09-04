@@ -1,7 +1,7 @@
 #include "DxLib.h"
 #include "JoyPadInput.h"
 
-JoyPadInput pad;
+
 
 // XVˆ—
 void JoyPadInput::Update()

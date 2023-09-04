@@ -1,7 +1,7 @@
 #include "DxLib.h"
 #include "MouseInput.h"
 
-MouseInput mouse;
+
 
 void MouseInput::Update()
 {

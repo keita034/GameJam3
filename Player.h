@@ -7,7 +7,7 @@ class Player
 {
 	enum MoveStatus
 	{
-		Move,
+		Moveing,
 		Attack
 	};
 	Vec2 position_;

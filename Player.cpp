@@ -3,6 +3,9 @@
 void Player::Init()
 {
 	landing_ = true;
+	speed_ = { 0,0 };
+	size_ = { BLACK_SIZE,BLACK_SIZE };
+	position_ = { 0,FIELD_HEIGHT };
 }
 
 void Player::SetInput(Input* input)
@@ -24,12 +27,12 @@ void Player::Jump()
 		if (inputPtr_->key.GetKeyTrigger(KEY_INPUT_SPACE))
 		{
 			landing_ = false;
-			speed_.y = 20.f;
+			speed_.y = -20.f;
 		}
 	}
 	else
 	{
-		speed_.y -= 1.0f;
+		speed_.y += 1.0f;
 	}
 }
 
