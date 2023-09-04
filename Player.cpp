@@ -154,7 +154,7 @@ bool Player::TopMoveCollision(float speed)
 	float radius = size_.x / 2.0f;
 
 	int32_t topLeftX = static_cast<int32_t>((position_.x - radius) / BLOCK_SIZE);
-	int32_t topRightX = static_cast<int32_t>((position_.x + radius) / BLOCK_SIZE);
+	int32_t topRightX = static_cast<int32_t>((position_.x + radius - 1) / BLOCK_SIZE);
 
 	int32_t topLeftY = static_cast<int32_t>(((position_.y - size_.y - 1) + speed) / BLOCK_SIZE);
 	int32_t topRightY = static_cast<int32_t>(((position_.y - size_.y) + speed) / BLOCK_SIZE);
@@ -250,8 +250,8 @@ bool Player::RightMoveCollision(float speed)
 {
 	float radius = size_.x / 2.0f;
 
-	int32_t topRightX = static_cast<int32_t>(((position_.x + radius) + speed) / BLOCK_SIZE);
-	int32_t downRightX = static_cast<int32_t>(((position_.x + radius) + speed) / BLOCK_SIZE);
+	int32_t topRightX = static_cast<int32_t>(((position_.x + radius-1) + speed) / BLOCK_SIZE);
+	int32_t downRightX = static_cast<int32_t>(((position_.x + radius - 1) + speed) / BLOCK_SIZE);
 
 	int32_t topRightY = static_cast<int32_t>((position_.y - size_.y) / BLOCK_SIZE);
 	int32_t downRightY = static_cast<int32_t>((position_.y + size_.y - 1) / BLOCK_SIZE);
