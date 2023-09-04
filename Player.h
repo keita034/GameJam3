@@ -16,6 +16,7 @@ class Player
 	Input* inputPtr_;
 	bool landing_;
 	uint16_t actionStatus_;
+	std::array<std::array<uint8_t, 5>, 5> mapHit_;
 public:
 	void Init();
 	void SetInput(Input* input);

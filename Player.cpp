@@ -6,6 +6,15 @@ void Player::Init()
 	speed_ = { 0,0 };
 	size_ = { BLOCK_SIZE,BLOCK_SIZE };
 	position_ = { 0,FIELD_HEIGHT };
+	for (auto& x : mapHit_)
+	{
+		for (auto& y : x)
+		{
+			y = 0;
+		}
+	}
+	mapHit_[2][3] = 1;
+	mapHit_[2][4] = 1;
 }
 
 void Player::SetInput(Input* input)
