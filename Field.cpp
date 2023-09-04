@@ -20,12 +20,12 @@ void Field::Draw()
 		{
 			if (field_[i].line[j] == FieldBlockIndex::WALL)
 			{
-				DrawBox(BLACK_SIZE * j, BLACK_SIZE * i, BLACK_SIZE + BLACK_SIZE * j, BLACK_SIZE + BLACK_SIZE * i, GetColor(100, 100, 100), true);
-				DrawBox(BLACK_SIZE * j, BLACK_SIZE * i, BLACK_SIZE + BLACK_SIZE * j, BLACK_SIZE + BLACK_SIZE * i, GetColor(255, 255, 255), false);
+				DrawBox(BLOCK_SIZE * j, BLOCK_SIZE * i, BLOCK_SIZE + BLOCK_SIZE * j, BLOCK_SIZE + BLOCK_SIZE * i, GetColor(100, 100, 100), true);
+				DrawBox(BLOCK_SIZE * j, BLOCK_SIZE * i, BLOCK_SIZE + BLOCK_SIZE * j, BLOCK_SIZE + BLOCK_SIZE * i, GetColor(255, 255, 255), false);
 			}
 			else if(field_[i].line[j] == FieldBlockIndex::GREEN_BLOCK)
 			{
-				DrawBox(BLACK_SIZE * j, BLACK_SIZE * i, BLACK_SIZE + BLACK_SIZE * j, BLACK_SIZE + BLACK_SIZE * i, GetColor(0, 255, 0), true);
+				DrawBox(BLOCK_SIZE * j, BLOCK_SIZE * i, BLOCK_SIZE + BLOCK_SIZE * j, BLOCK_SIZE + BLOCK_SIZE * i, GetColor(0, 255, 0), true);
 			}
 		}
 	}

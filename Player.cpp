@@ -4,7 +4,7 @@ void Player::Init()
 {
 	landing_ = true;
 	speed_ = { 0,0 };
-	size_ = { BLACK_SIZE,BLACK_SIZE };
+	size_ = { BLOCK_SIZE,BLOCK_SIZE };
 	position_ = { 0,FIELD_HEIGHT };
 }
 

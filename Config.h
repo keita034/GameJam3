@@ -9,13 +9,13 @@ const int32_t WIN_WIDTH = 1280;
 const int32_t WIN_HEIGHT = 704;
 
 //ブロックサイズ
-const int32_t BLACK_SIZE = 32;
+const int32_t BLOCK_SIZE = 32;
 
 //フィールドの横幅
-const size_t FIELD_WIDTH = WIN_WIDTH / BLACK_SIZE;
+const size_t FIELD_WIDTH = WIN_WIDTH / BLOCK_SIZE;
 
 //フィールドの縦幅
-const size_t FIELD_HEIGHT = WIN_HEIGHT / BLACK_SIZE;
+const size_t FIELD_HEIGHT = WIN_HEIGHT / BLOCK_SIZE;
 
 //フレームの横幅
 const size_t FRAME_WIDTH = 2;
