@@ -6,7 +6,7 @@ void Field::Init()
 {
 	minos_ = std::make_unique<Mino>();
 	mino_ = minos_.get();
-	mino_->Init({ 5,5 }, I,GREEN,2);
+	mino_->Init({ 34,5 }, I, GREEN, 2);
 
 	Reset();
 }
@@ -84,9 +84,9 @@ void Field::Reset()
 
 void Field::FieldReset()
 {
-	for (size_t i = FRAME_HEIGHT; i < MAP_HEIGHT+ FRAME_HEIGHT; i++)
+	for (size_t i = FRAME_HEIGHT; i < MAP_HEIGHT + FRAME_HEIGHT; i++)
 	{
-		for (size_t j = FRAME_WIDTH; j < MAP_WIDTH+ FRAME_WIDTH; j++)
+		for (size_t j = FRAME_WIDTH; j < MAP_WIDTH + FRAME_WIDTH; j++)
 		{
 			if (GetMaptChipData(j, i) == FieldBlockIndex::GHOST_BLOCK)
 			{
@@ -96,11 +96,85 @@ void Field::FieldReset()
 	}
 }
 
-void Field::Push()
+void Field::RightPush()
 {
 	if (mino_)
 	{
-		mino_->Push();
+		int32_t pushNum = 0;
+		bool isBreak = false;
+
+		for (int32_t k = 1; k < 3; k++)
+		{
+			for (size_t i = 0; i < MINO_SIZE; i++)
+			{
+				for (size_t j = 0; j < MINO_SIZE; j++)
+				{
+					if (mino_->GetMino(j, i) == Mino::BlockIndex::BLOCK)
+					{
+						Int2 index = mino_->GetPosIndex(j, i);
+
+						if(field_[index.y].line[index.x + k] != FieldBlockIndex::NONE &&
+							field_[index.y].line[index.x + k] != FieldBlockIndex::GHOST_BLOCK)
+						{
+							pushNum = k-1;
+							isBreak = true;
+							break;
+						}
+					}
+				}
+				if (isBreak)break;
+			}
+			if (isBreak)break;
+
+		}
+
+		if (!isBreak)pushNum = 2;
+
+		if (pushNum > 0)
+		{
+			mino_->Push(pushNum);
+		}
+	}
+}
+
+void Field::LeftPush()
+{
+	if (mino_)
+	{
+		int32_t pushNum = 0;
+		bool isBreak = false;
+
+		for (int32_t k = 1; k < 3; k++)
+		{
+			for (size_t i = 0; i < MINO_SIZE; i++)
+			{
+				for (size_t j = 0; j < MINO_SIZE; j++)
+				{
+					if (mino_->GetMino(j, i) == Mino::BlockIndex::BLOCK)
+					{
+						Int2 index = mino_->GetPosIndex(j, i);
+
+						if (field_[index.y].line[index.x - k] != FieldBlockIndex::NONE &&
+							field_[index.y].line[index.x - k] != FieldBlockIndex::GHOST_BLOCK)
+						{
+							pushNum = -(k + 1);
+							isBreak = true;
+							break;
+						}
+					}
+				}
+				if (isBreak)break;
+			}
+			if (isBreak)break;
+
+		}
+
+		if (!isBreak)pushNum = -2;
+
+		if (pushNum > 0)
+		{
+			mino_->Push(pushNum);
+		}
 	}
 }
 

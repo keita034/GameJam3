@@ -38,7 +38,7 @@ const size_t MINO_SIZE = 5;
 
 const size_t MINO_FALL_INTERVAL_TIMER = 10;
 
-const size_t MINO_GRACE_TIME = 10;
+const size_t MINO_GRACE_TIME = 1000;
 
 enum FieldBlockIndex : int8_t
 {

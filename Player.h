@@ -29,6 +29,7 @@ public:
 	void Init(Input* input, int8_t* sceneStatus, Field* field);
 	void Move();
 	void Jump();
+	void Push();
 	void UpData();
 	void Draw();
 

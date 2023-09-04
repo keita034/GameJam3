@@ -31,7 +31,7 @@ public:
 
 	void Rotate();
 
-	void Push();
+	void Push(int32_t num);
 
 	Int2 GetPosIndex(size_t width, size_t height);
 

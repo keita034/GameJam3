@@ -63,10 +63,23 @@ void Player::Jump()
 	}
 }
 
+void Player::Push()
+{
+	if (inputPtr_->key.GetKeyTrigger(KEY_INPUT_X))
+	{
+		if (RightCollision())
+		{
+			field_->RightPush();
+		}
+
+	}
+}
+
 void Player::UpData()
 {
 	Jump();
 	Move();
+	Push();
 }
 
 void Player::Draw()
@@ -80,8 +93,10 @@ void Player::Draw()
 
 bool Player::DownMoveCollision(float speed)
 {
-	int32_t downLeftX = static_cast<int32_t>((position_.x - size_.x) / BLOCK_SIZE);
-	int32_t downRightX = static_cast<int32_t>((position_.x + size_.x - 1) / BLOCK_SIZE);
+	float radius = size_.x / 2.0f;
+
+	int32_t downLeftX = static_cast<int32_t>((position_.x - radius) / BLOCK_SIZE);
+	int32_t downRightX = static_cast<int32_t>((position_.x + radius - 1) / BLOCK_SIZE);
 
 	int32_t downLeftY = static_cast<int32_t>(((position_.y + size_.y - 1) + speed) / BLOCK_SIZE);
 	int32_t downRightY = static_cast<int32_t>(((position_.y + size_.y - 1) + speed) / BLOCK_SIZE);
@@ -127,8 +142,10 @@ bool Player::DownMoveCollision(float speed)
 
 bool Player::TopMoveCollision(float speed)
 {
-	int32_t topLeftX = static_cast<int32_t>((position_.x - size_.x) / BLOCK_SIZE);
-	int32_t topRightX = static_cast<int32_t>((position_.x + size_.x) / BLOCK_SIZE);
+	float radius = size_.x / 2.0f;
+
+	int32_t topLeftX = static_cast<int32_t>((position_.x - radius) / BLOCK_SIZE);
+	int32_t topRightX = static_cast<int32_t>((position_.x + radius) / BLOCK_SIZE);
 
 	int32_t topLeftY = static_cast<int32_t>(((position_.y - size_.y - 1) + speed) / BLOCK_SIZE);
 	int32_t topRightY = static_cast<int32_t>(((position_.y - size_.y) + speed) / BLOCK_SIZE);
@@ -173,8 +190,11 @@ bool Player::TopMoveCollision(float speed)
 
 bool Player::LeftMoveCollision(float speed)
 {
-	int32_t topLeftX = static_cast<int32_t>(((position_.x - size_.x) + speed) / BLOCK_SIZE);
-	int32_t downLeftX = static_cast<int32_t>(((position_.x - size_.x) + speed) / BLOCK_SIZE);
+	float radius = size_.x / 2.0f;
+
+
+	int32_t topLeftX = static_cast<int32_t>(((position_.x - radius) + speed) / BLOCK_SIZE);
+	int32_t downLeftX = static_cast<int32_t>(((position_.x - radius) + speed) / BLOCK_SIZE);
 
 	int32_t topLeftY = static_cast<int32_t>((position_.y - size_.y) / BLOCK_SIZE);
 	int32_t downLeftY = static_cast<int32_t>((position_.y + size_.y - 1) / BLOCK_SIZE);
@@ -188,16 +208,16 @@ bool Player::LeftMoveCollision(float speed)
 	}
 	else
 	{
-		topLeftX = static_cast<int32_t>(((position_.x - size_.x)) / BLOCK_SIZE);
-		downLeftX = static_cast<int32_t>(((position_.x - size_.x)) / BLOCK_SIZE);
+		topLeftX = static_cast<int32_t>(((position_.x - radius)) / BLOCK_SIZE);
+		downLeftX = static_cast<int32_t>(((position_.x - radius)) / BLOCK_SIZE);
 
 		if (field_->GetMaptChipData(topLeftX, topLeftY) == FieldBlockIndex::NONE &&
 			field_->GetMaptChipData(downLeftX, downLeftY) == FieldBlockIndex::NONE)
 		{
 			while (1)
 			{
-				topLeftX = static_cast<int32_t>(((position_.x - size_.x) - 1) / BLOCK_SIZE);
-				downLeftX = static_cast<int32_t>(((position_.x - size_.x) - 1) / BLOCK_SIZE);
+				topLeftX = static_cast<int32_t>(((position_.x - radius) - 1) / BLOCK_SIZE);
+				downLeftX = static_cast<int32_t>(((position_.x - radius) - 1) / BLOCK_SIZE);
 
 
 				if (field_->GetMaptChipData(topLeftX, topLeftY) == FieldBlockIndex::NONE &&
@@ -219,8 +239,10 @@ bool Player::LeftMoveCollision(float speed)
 
 bool Player::RightMoveCollision(float speed)
 {
-	int32_t topRightX = static_cast<int32_t>(((position_.x + size_.x) + speed) / BLOCK_SIZE);
-	int32_t downRightX = static_cast<int32_t>(((position_.x + size_.x) + speed) / BLOCK_SIZE);
+	float radius = size_.x / 2.0f;
+
+	int32_t topRightX = static_cast<int32_t>(((position_.x + radius) + speed) / BLOCK_SIZE);
+	int32_t downRightX = static_cast<int32_t>(((position_.x + radius) + speed) / BLOCK_SIZE);
 
 	int32_t topRightY = static_cast<int32_t>((position_.y - size_.y) / BLOCK_SIZE);
 	int32_t downRightY = static_cast<int32_t>((position_.y + size_.y - 1) / BLOCK_SIZE);
@@ -234,16 +256,16 @@ bool Player::RightMoveCollision(float speed)
 	}
 	else
 	{
-		topRightX = static_cast<int32_t>(((position_.x + size_.x - 1)) / BLOCK_SIZE);
-		downRightX = static_cast<int32_t>(((position_.x + size_.x - 1)) / BLOCK_SIZE);
+		topRightX = static_cast<int32_t>(((position_.x + radius - 1)) / BLOCK_SIZE);
+		downRightX = static_cast<int32_t>(((position_.x + radius - 1)) / BLOCK_SIZE);
 
 		if (field_->GetMaptChipData(topRightX, topRightY) == FieldBlockIndex::NONE &&
 			field_->GetMaptChipData(downRightX, downRightY) == FieldBlockIndex::NONE)
 		{
 			while (1)
 			{
-				topRightX = static_cast<int32_t>(((position_.x + size_.x - 1) + 1) / BLOCK_SIZE);
-				downRightX = static_cast<int32_t>(((position_.x + size_.x - 1) + 1) / BLOCK_SIZE);
+				topRightX = static_cast<int32_t>(((position_.x + radius - 1) + 1) / BLOCK_SIZE);
+				downRightX = static_cast<int32_t>(((position_.x + radius - 1) + 1) / BLOCK_SIZE);
 
 
 				if (field_->GetMaptChipData(topRightX, topRightY) == FieldBlockIndex::NONE &&
@@ -265,8 +287,10 @@ bool Player::RightMoveCollision(float speed)
 
 bool Player::DownCollision()
 {
-	int32_t downLeftX = static_cast<int32_t>((position_.x - size_.x) / BLOCK_SIZE);
-	int32_t downRightX = static_cast<int32_t>((position_.x + size_.x - 1) / BLOCK_SIZE);
+	float radius = size_.x / 2.0f;
+
+	int32_t downLeftX = static_cast<int32_t>((position_.x - radius) / BLOCK_SIZE);
+	int32_t downRightX = static_cast<int32_t>((position_.x + radius - 1) / BLOCK_SIZE);
 
 	int32_t downLeftY = static_cast<int32_t>((position_.y + size_.y) / BLOCK_SIZE);
 	int32_t downRightY = static_cast<int32_t>((position_.y + size_.y) / BLOCK_SIZE);
@@ -284,8 +308,10 @@ bool Player::DownCollision()
 
 bool Player::TopCollision()
 {
-	int32_t topLeftX = static_cast<int32_t>((position_.x - size_.x) / BLOCK_SIZE);
-	int32_t topRightX = static_cast<int32_t>((position_.x + size_.x) / BLOCK_SIZE);
+	float radius = size_.x / 2.0f;
+
+	int32_t topLeftX = static_cast<int32_t>((position_.x - radius) / BLOCK_SIZE);
+	int32_t topRightX = static_cast<int32_t>((position_.x + radius) / BLOCK_SIZE);
 
 	int32_t topLeftY = static_cast<int32_t>((position_.y - size_.y) / BLOCK_SIZE);
 	int32_t topRightY = static_cast<int32_t>((position_.y - size_.y) / BLOCK_SIZE);
@@ -303,8 +329,10 @@ bool Player::TopCollision()
 
 bool Player::LeftCollision()
 {
-	int32_t topLeftX = static_cast<int32_t>(((position_.x - size_.x)) / BLOCK_SIZE);
-	int32_t downLeftX = static_cast<int32_t>(((position_.x - size_.x)) / BLOCK_SIZE);
+	float radius = size_.x / 2.0f;
+
+	int32_t topLeftX = static_cast<int32_t>(((position_.x - radius)) / BLOCK_SIZE);
+	int32_t downLeftX = static_cast<int32_t>(((position_.x - radius)) / BLOCK_SIZE);
 
 	int32_t topLeftY = static_cast<int32_t>((position_.y - size_.y) / BLOCK_SIZE);
 	int32_t downLeftY = static_cast<int32_t>((position_.y + size_.y - 1) / BLOCK_SIZE);
@@ -322,6 +350,8 @@ bool Player::LeftCollision()
 
 bool Player::RightCollision()
 {
+	float radius = size_.x / 2.0f;
+
 	int32_t topRightX = static_cast<int32_t>(((position_.x + size_.x - 1)) / BLOCK_SIZE);
 	int32_t downRightX = static_cast<int32_t>(((position_.x + size_.x - 1)) / BLOCK_SIZE);
 

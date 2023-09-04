@@ -39,7 +39,8 @@ public:
 
 	void FieldReset();
 
-	void Push();
+	void RightPush();
+	void LeftPush();
 
 	/// <summary>
 	/// マップチップのデータ取得
