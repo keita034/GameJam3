@@ -1,13 +1,13 @@
 #include "DxLib.h"
 
+#include<memory>
+
+#include"Config.h"
+#include"Field.h"
+
+
 // ウィンドウのタイトルに表示する文字列
 const char TITLE[] = "タイトル";
-
-// ウィンドウ横幅
-const int WIN_WIDTH = 1280;
-
-// ウィンドウ縦幅
-const int WIN_HEIGHT = 720;
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine,
                    _In_ int nCmdShow) {
@@ -41,6 +41,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// ゲームループで使う変数の宣言
 
+	std::unique_ptr<Field> field = std::make_unique<Field>();
+	field->Init();
 
 	// 最新のキーボード情報用
 	char keys[256] = {0};
@@ -63,9 +65,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//---------  ここからプログラムを記述  ----------//
 
 		// 更新処理
-
+		field->Update();
 
 		// 描画処理
+		field->Draw();
 
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面
