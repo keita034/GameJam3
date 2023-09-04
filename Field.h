@@ -48,6 +48,8 @@ public:
 	/// <param name="height">èc</param>
 	int8_t GetChipData(size_t width, size_t height);
 
+	int8_t GetMaptChipData(size_t width, size_t height);
+
 	void SetMino(Mino* mino);
 
 private:

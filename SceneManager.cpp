@@ -7,7 +7,7 @@ void SceneManager::Init()
 	field_->Init();
 	input_ = std::make_unique<Input>();
 	player_ = std::make_unique<Player>();
-	player_->Init(input_.get(), &sceneStatus_);
+	player_->Init(input_.get(), &sceneStatus_, field_.get());
 }
 
 

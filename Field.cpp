@@ -105,6 +105,11 @@ int8_t Field::GetChipData(size_t width, size_t height)
 	return field_[height + FRAME_HEIGHT].line[width + FRAME_WIDTH];
 }
 
+int8_t Field::GetMaptChipData(size_t width, size_t height)
+{
+	return field_[height].line[width];
+}
+
 void Field::SetMino(Mino* mino)
 {
 	if (mino->IsValid())
