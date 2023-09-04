@@ -3,6 +3,8 @@
 
 #include"Mino.h"
 
+#include<map>
+
 struct Line
 {
 	std::array<int8_t, FIELD_WIDTH>line{};
