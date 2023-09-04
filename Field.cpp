@@ -51,6 +51,10 @@ void Field::Draw()
 			{
 				DrawBox(BLOCK_SIZE * j, BLOCK_SIZE * i, BLOCK_SIZE + BLOCK_SIZE * j, BLOCK_SIZE + BLOCK_SIZE * i, GetColor(0, 0, 255), true);
 			}
+			else if (field_[i].line[j] == FieldBlockIndex::GHOST_BLOCK)
+			{
+				DrawBox(BLOCK_SIZE * j, BLOCK_SIZE * i, BLOCK_SIZE + BLOCK_SIZE * j, BLOCK_SIZE + BLOCK_SIZE * i, GetColor(255, 255, 255), true);
+			}
 		}
 	}
 
@@ -80,11 +84,11 @@ void Field::Reset()
 
 void Field::FieldReset()
 {
-	for (size_t i = FRAME_HEIGHT; i < MAP_HEIGHT; i++)
+	for (size_t i = FRAME_HEIGHT; i < MAP_HEIGHT+ FRAME_HEIGHT; i++)
 	{
-		for (size_t j = FRAME_WIDTH; j < MAP_WIDTH; j++)
+		for (size_t j = FRAME_WIDTH; j < MAP_WIDTH+ FRAME_WIDTH; j++)
 		{
-			if (GetChipData(j, i) == FieldBlockIndex::GHOST_BLOCK)
+			if (GetMaptChipData(j, i) == FieldBlockIndex::GHOST_BLOCK)
 			{
 				field_[i].line[j] = FieldBlockIndex::NONE;
 			}

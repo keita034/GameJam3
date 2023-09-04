@@ -36,7 +36,7 @@ const size_t MAP_HEIGHT = FIELD_HEIGHT - FRAME_HEIGHT * 2;
 
 const size_t MINO_SIZE = 5;
 
-const size_t MINO_FALL_INTERVAL_TIMER = 10;
+const size_t MINO_FALL_INTERVAL_TIMER = 1;
 
 const size_t MINO_GRACE_TIME = 10;
 
