@@ -9,7 +9,7 @@ void Player::Init(Input* input, int8_t* sceneStatus, Field* field)
 {
 	landing_ = true;
 	speed_ = { 0,0 };
-	size_ = { BLOCK_SIZE,BLOCK_SIZE };
+	size_ = { BLOCK_SIZE - 2,BLOCK_SIZE - 2 };
 	position_ = { 100,100 };
 	for (auto& x : mapHit_)
 	{
@@ -26,24 +26,23 @@ void Player::Init(Input* input, int8_t* sceneStatus, Field* field)
 	field_ = field;
 
 	speed_.y = 1.0f;
+	speed_.x = 3.0f;
 
 }
 
 void Player::Move()
 {
-	if (DownTopMoveCollision(speed_.y))
+	if (DownTopMoveCollision(speed_.y) == 1)
 	{
 		speed_.y = 0.0f;
+		landing_ = true;
 	}
 	else
 	{
-		if (landing_)
-		{
-			speed_.y = gravity;
-		}
+		speed_.y += gravity;
 	}
 
-	LeftRightMoveCollision(inputPtr_->key.GetHorizontal(KEY_INPUT_A, KEY_INPUT_D));
+	LeftRightMoveCollision(inputPtr_->key.GetHorizontal(KEY_INPUT_A, KEY_INPUT_D) * speed_.x);
 	//position_.x += inputPtr_->key.GetHorizontal(KEY_INPUT_A, KEY_INPUT_D);
 }
 
@@ -67,11 +66,21 @@ void Player::Push()
 {
 	if (inputPtr_->key.GetKeyTrigger(KEY_INPUT_X))
 	{
-		if (RightCollision())
+		if (inputPtr_->key.GetKey(KEY_INPUT_D))
 		{
-			field_->RightPush();
+			if (RightCollision())
+			{
+				field_->RightPush();
+			}
 		}
 
+		if (inputPtr_->key.GetKey(KEY_INPUT_A))
+		{
+			if (LeftCollision())
+			{
+				field_->LeftPush();
+			}
+		}
 	}
 }
 

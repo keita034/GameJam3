@@ -13,6 +13,20 @@ class Player
 		Attack
 	};
 
+	enum class VirticalHit
+	{
+		None,
+		Top,
+		Down
+	};
+
+	enum class HorizonHit
+	{
+		None,
+		Left,
+		Right
+	};
+
 	Vec2 position_;
 	Vec2 speed_;
 	Vec2 size_;
