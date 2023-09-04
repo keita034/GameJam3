@@ -28,6 +28,7 @@ class Player
 	};
 
 	Vec2 position_;
+	Vec2 respownPosition_;
 	Vec2 speed_;
 	Vec2 size_;
 	Input* inputPtr_;
@@ -51,6 +52,9 @@ public:
 	bool TopMoveCollision(float speed);
 	bool LeftMoveCollision(float speed);
 	bool RightMoveCollision(float speed);
+
+	bool Deth();
+	bool GetCaughtHit();
 
 	bool DownCollision();
 	bool TopCollision();

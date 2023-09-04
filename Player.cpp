@@ -10,7 +10,8 @@ void Player::Init(Input* input, int8_t* sceneStatus, Field* field)
 	landing_ = true;
 	speed_ = { 0,0 };
 	size_ = { BLOCK_SIZE - 2,BLOCK_SIZE - 2 };
-	position_ = { 100,100 };
+	position_ = { 900,100 };
+	respownPosition_ = { 100,100 };
 	for (auto& x : mapHit_)
 	{
 		for (auto& y : x)
@@ -89,6 +90,7 @@ void Player::UpData()
 	Jump();
 	Move();
 	Push();
+	Deth();
 }
 
 void Player::Draw()
@@ -292,6 +294,47 @@ bool Player::RightMoveCollision(float speed)
 
 		return true;
 	}
+}
+
+bool Player::Deth()
+{
+	if (GetCaughtHit())
+	{
+		position_ = respownPosition_;
+		return true;
+	}
+	return false;
+}
+
+bool Player::GetCaughtHit()
+{
+	float radius = size_.x / 2.0f;
+
+
+	int32_t downLeftX = static_cast<int32_t>((position_.x - radius) / BLOCK_SIZE);
+	int32_t downRightX = static_cast<int32_t>((position_.x + radius - 1) / BLOCK_SIZE);
+
+	int32_t downLeftY = static_cast<int32_t>((position_.y + size_.y) / BLOCK_SIZE);
+	int32_t downRightY = static_cast<int32_t>((position_.y + size_.y) / BLOCK_SIZE);
+
+	if (field_->GetMaptChipData(downLeftX, downLeftY + 1) == FieldBlockIndex::NONE &&
+		field_->GetMaptChipData(downRightX, downRightY + 1) == FieldBlockIndex::NONE)
+	{
+		return false;
+	}
+
+	int32_t topLeftX = static_cast<int32_t>((position_.x - radius) / BLOCK_SIZE);
+	int32_t topRightX = static_cast<int32_t>((position_.x + radius) / BLOCK_SIZE);
+
+	int32_t topLeftY = static_cast<int32_t>((position_.y - size_.y) / BLOCK_SIZE);
+	int32_t topRightY = static_cast<int32_t>((position_.y - size_.y) / BLOCK_SIZE);
+
+	if (field_->GetMaptChipData(topLeftX, topLeftY) == FieldBlockIndex::NONE &&
+		field_->GetMaptChipData(topRightX, topRightY) == FieldBlockIndex::NONE)
+	{
+		return false;
+	}
+	return true;
 }
 
 bool Player::DownCollision()
