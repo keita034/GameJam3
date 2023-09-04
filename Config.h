@@ -1,6 +1,10 @@
 #pragma once
 
 #include<stdint.h>
+#include<array>
+#include<vector>
+#include<list>
+#include<memory>
 
 // ウィンドウ横幅
 const int32_t WIN_WIDTH = 1280;
