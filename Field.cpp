@@ -9,6 +9,7 @@ void Field::Init()
 
 void Field::Update()
 {
+
 }
 
 void Field::Draw()
@@ -26,9 +27,7 @@ void Field::Draw()
 			{
 				DrawBox(BLACK_SIZE * j, BLACK_SIZE * i, BLACK_SIZE + BLACK_SIZE * j, BLACK_SIZE + BLACK_SIZE * i, GetColor(0, 255, 0), true);
 			}
-
 		}
-
 	}
 }
 
@@ -45,15 +44,14 @@ void Field::Reset()
 			else
 			{
 				field_[i].line[j] = FieldBlockIndex::NONE;
+
 			}
 		}
-
 	}
 }
 
 int8_t Field::GetChipData(size_t width, size_t height)
 {
-
 	return field_[height + FRAME_HEIGHT].line[width + FRAME_WIDTH];
 }
 
