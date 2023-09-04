@@ -39,7 +39,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// 画像などのリソースデータの変数宣言と読み込み
 
-
 	// ゲームループで使う変数の宣言
 
 	std::unique_ptr<Field> field = std::make_unique<Field>();
@@ -48,6 +47,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	std::unique_ptr<Player> player = std::make_unique<Player>();
 	player->Init();
 	player->SetInput(input.get());
+
 	// ゲームループ
 	while (true) {
 		
@@ -58,10 +58,14 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		// 更新処理
 		player->UpData();
+
 		field->Update();
+
+
 
 		// 描画処理
 		field->Draw();
+
 		player->Draw();
 
 		//---------  ここまでにプログラムを記述  ---------//

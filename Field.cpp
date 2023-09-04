@@ -4,17 +4,34 @@
 
 void Field::Init()
 {
+	minos_ = std::make_unique<Mino>();
+	mino_ = minos_.get();
+	mino_->Init({ 5,5 }, I);
+
 	Reset();
+	mino_->Rotate();
 }
 
 void Field::Update()
 {
+	FieldReset();
 
+	if (mino_)
+	{
+		mino_->Update();
+
+		SetMino(mino_);
+
+		if (!mino_->IsValid())
+		{
+			mino_ = nullptr;
+		}
+	}
 }
 
 void Field::Draw()
 {
-	for (size_t i= 0; i < FIELD_HEIGHT; i++)
+	for (size_t i = 0; i < FIELD_HEIGHT; i++)
 	{
 		for (size_t j = 0; j < FIELD_WIDTH; j++)
 		{
@@ -23,11 +40,16 @@ void Field::Draw()
 				DrawBox(BLOCK_SIZE * j, BLOCK_SIZE * i, BLOCK_SIZE + BLOCK_SIZE * j, BLOCK_SIZE + BLOCK_SIZE * i, GetColor(100, 100, 100), true);
 				DrawBox(BLOCK_SIZE * j, BLOCK_SIZE * i, BLOCK_SIZE + BLOCK_SIZE * j, BLOCK_SIZE + BLOCK_SIZE * i, GetColor(255, 255, 255), false);
 			}
-			else if(field_[i].line[j] == FieldBlockIndex::GREEN_BLOCK)
+			else if (field_[i].line[j] == FieldBlockIndex::GREEN_BLOCK)
 			{
 				DrawBox(BLOCK_SIZE * j, BLOCK_SIZE * i, BLOCK_SIZE + BLOCK_SIZE * j, BLOCK_SIZE + BLOCK_SIZE * i, GetColor(0, 255, 0), true);
 			}
 		}
+	}
+
+	if (mino_)
+	{
+		mino_->Draw();
 	}
 }
 
@@ -44,7 +66,20 @@ void Field::Reset()
 			else
 			{
 				field_[i].line[j] = FieldBlockIndex::NONE;
+			}
+		}
+	}
+}
 
+void Field::FieldReset()
+{
+	for (size_t i = FRAME_HEIGHT; i < MAP_HEIGHT; i++)
+	{
+		for (size_t j = FRAME_WIDTH; j < MAP_WIDTH; j++)
+		{
+			if (GetChipData(j, i) == FieldBlockIndex::GHOST_BLOCK)
+			{
+				field_[i].line[j] = FieldBlockIndex::NONE;
 			}
 		}
 	}
@@ -55,7 +90,41 @@ int8_t Field::GetChipData(size_t width, size_t height)
 	return field_[height + FRAME_HEIGHT].line[width + FRAME_WIDTH];
 }
 
-void Field::SetChipData(size_t width, size_t height, int8_t value)
+void Field::SetMino(Mino* mino)
 {
-	field_[height + FRAME_HEIGHT].line[width + FRAME_WIDTH] = value;
+	if (mino->IsValid())
+	{
+		for (size_t i = 0; i < MINO_SIZE; i++)
+		{
+			for (size_t j = 0; j < MINO_SIZE; j++)
+			{
+				if (mino->GetMino(j, i) == Mino::BlockIndex::BLOCK)
+				{
+					Int2 index = mino->GetPosIndex(j, i);
+					field_[index.y].line[index.x] = FieldBlockIndex::GHOST_BLOCK;
+
+					if (field_[index.y + 1].line[index.x] != FieldBlockIndex::NONE && field_[index.y + 1].line[index.x] != FieldBlockIndex::GHOST_BLOCK)
+					{
+						mino->InvalidateFall();
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		for (size_t i = 0; i < MINO_SIZE; i++)
+		{
+			for (size_t j = 0; j < MINO_SIZE; j++)
+			{
+				if (mino->GetMino(j, i) == Mino::BlockIndex::BLOCK)
+				{
+					Int2 index = mino->GetPosIndex(j, i);
+					field_[index.y].line[index.x] = FieldBlockIndex::GREEN_BLOCK;
+					field_[index.y].blockCount++;
+				}
+			}
+		}
+	}
+
 }
