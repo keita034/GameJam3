@@ -2,6 +2,10 @@
 #include<array>
 
 #include"Config.h"
+#include"Int2.h"
+
+#include"Mino.h"
+#include<memory>
 
 struct Line
 {
@@ -37,6 +41,8 @@ public:
 	/// </summary>
 	void Reset();
 
+	void FieldReset();
+
 	/// <summary>
 	/// マップチップのデータ取得
 	/// </summary>
@@ -44,18 +50,15 @@ public:
 	/// <param name="height">縦</param>
 	int8_t GetChipData(size_t width, size_t height);
 
-	/// <summary>
-	/// マップチップのデータを設定
-	/// </summary>
-	/// <param name="width">横</param>
-	/// <param name="height">縦</param>
-	/// <param name="value">値</param>
-	void SetChipData(size_t width, size_t height, int8_t value);
+	void SetMino(Mino* mino);
 
 private:
 
 	//マップチップのデータ
 	std::array<Line, FIELD_HEIGHT>field_;
+
+	std::unique_ptr<Mino> minos_;
+	Mino* mino_;
 
 };
 

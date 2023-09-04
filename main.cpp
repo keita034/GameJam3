@@ -48,6 +48,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		// 更新処理
 		scene->Update();
 
+
+
 		// 描画処理
 		scene->Draw();
 		//---------  ここまでにプログラムを記述  ---------//

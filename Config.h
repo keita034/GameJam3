@@ -33,10 +33,21 @@ const size_t MAP_WIDTH = FIELD_WIDTH - FRAME_WIDTH * 2;
 //É}ÉbÉvÇÃècïù
 const size_t MAP_HEIGHT = FIELD_HEIGHT - FRAME_HEIGHT * 2;
 
+const size_t MINO_SIZE = 5;
+
+const size_t MINO_FALL_INTERVAL_TIMER = 10;
+
+const size_t MINO_GRACE_TIME = 10;
 
 enum FieldBlockIndex : int8_t
 {
 	NONE,
 	WALL,
+	GHOST_BLOCK,
 	GREEN_BLOCK,
+};
+
+enum MinoType
+{
+	I,
 };
