@@ -1,6 +1,11 @@
 #include "Player.h"
 
-void Player::Init()
+void Player::SetInput(Input* input)
+{
+	inputPtr_ = input;
+}
+
+void Player::Init(Input* input, int8_t* sceneStatus)
 {
 	landing_ = true;
 	speed_ = { 0,0 };
@@ -15,11 +20,9 @@ void Player::Init()
 	}
 	mapHit_[2][3] = 1;
 	mapHit_[2][4] = 1;
-}
 
-void Player::SetInput(Input* input)
-{
 	inputPtr_ = input;
+	sceneStatus_ = sceneStatus;
 }
 
 void Player::Move()

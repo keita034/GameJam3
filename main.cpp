@@ -1,11 +1,7 @@
 #include "DxLib.h"
 
-#include<memory>
+#include "SceneManager.h"
 
-#include"Config.h"
-#include"Field.h"
-#include "Input.h"
-#include "Player.h"
 
 // ウィンドウのタイトルに表示する文字列
 const char TITLE[] = "タイトル";
@@ -38,32 +34,22 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	// 画像などのリソースデータの変数宣言と読み込み
-
-
+	std::unique_ptr<SceneManager> scene = std::make_unique<SceneManager>();
+	scene->Init();
 	// ゲームループで使う変数の宣言
 
-	std::unique_ptr<Field> field = std::make_unique<Field>();
-	field->Init();
-	std::unique_ptr<Input> input = std::make_unique<Input>();
-	std::unique_ptr<Player> player = std::make_unique<Player>();
-	player->Init();
-	player->SetInput(input.get());
 	// ゲームループ
 	while (true) {
 		
-		input->Update();
 		// 画面クリア
 		ClearDrawScreen();
 		//---------  ここからプログラムを記述  ----------//
 
 		// 更新処理
-		player->UpData();
-		field->Update();
+		scene->Update();
 
 		// 描画処理
-		field->Draw();
-		player->Draw();
-
+		scene->Draw();
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面
 		ScreenFlip();
