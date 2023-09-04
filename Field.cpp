@@ -171,7 +171,7 @@ void Field::LeftPush()
 
 		if (!isBreak)pushNum = -2;
 
-		if (pushNum > 0)
+		if (pushNum < 0)
 		{
 			mino_->Push(pushNum);
 		}
