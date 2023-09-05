@@ -50,6 +50,7 @@ enum FieldBlockIndex : int8_t
 {
 	NONE,
 	WALL,
+	CEILING,
 	GHOST_BLOCK,
 	GREEN_BLOCK,
 	RED_BLOCK,
