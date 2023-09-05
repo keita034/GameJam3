@@ -47,12 +47,15 @@ void Mino::Update()
 	}
 	else
 	{
+
 		graceTime--;
 
-		if (graceTime <= 0)
+		if (graceTime <= 0 && isGround)
 		{
 			isValid_ = false;
 		}
+
+		isGround = true;
 	}
 }
 
@@ -110,6 +113,23 @@ void Mino::InvalidateFall()
 bool Mino::IsValid()
 {
 	return isValid_;
+}
+
+bool Mino::IsFall()
+{
+	return isFall_;
+}
+
+void Mino::Down()
+{
+	timer_++;
+
+	if (timer_ == MINO_FALL_INTERVAL_TIMER)
+	{
+		position_.y++;
+		timer_ = 0;
+	}
+	isGround = false;
 }
 
 MinoColorType Mino::GetMinoColor()

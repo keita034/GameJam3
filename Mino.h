@@ -39,6 +39,9 @@ public:
 	void InvalidateFall();
 
 	bool IsValid();
+	bool IsFall();
+
+	void Down();
 
 	MinoColorType GetMinoColor();
 
@@ -51,6 +54,7 @@ public:
 private:
 	bool isValid_ = false;
 	bool isFall_ = false;
+	bool isGround = true;
 	int32_t graceTime;
 	Int2 position_;
 	int32_t timer_ = 0;

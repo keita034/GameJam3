@@ -31,6 +31,33 @@ void Field::Update()
 
 	if (mino_)
 	{
+		if(!mino_->IsFall())
+		{
+			bool isBreak = false;
+			for (size_t i = 0; i < MINO_SIZE; i++)
+			{
+				for (size_t j = 0; j < MINO_SIZE; j++)
+				{
+					if (mino_->GetMino(i, j) == Mino::BlockIndex::BLOCK)
+					{
+						Int2 index = mino_->GetPosIndex(i, j);
+
+						if (field_[index.y + 1].line[index.x] != FieldBlockIndex::NONE)
+						{
+							isBreak = true;
+							break;
+						}
+					}
+
+				}
+			}
+
+			if (!isBreak)
+			{
+				mino_->Down();
+			}
+		}
+
 		mino_->Update();
 
 		SetMino(mino_);
@@ -83,7 +110,6 @@ void Field::Reset()
 	{
 		for (size_t j = 0; j < FIELD_WIDTH; j++)
 		{
-
 			if (i < FRAME_HEIGHT || i >= FIELD_HEIGHT - FRAME_HEIGHT || j < FRAME_WIDTH || j >= FIELD_WIDTH - FRAME_WIDTH)
 			{
 				if (i < FRAME_HEIGHT)
@@ -93,7 +119,6 @@ void Field::Reset()
 				else
 				{
 					field_[i].line[j] = FieldBlockIndex::WALL;
-
 				}
 
 			}
@@ -111,7 +136,6 @@ void Field::FieldReset()
 	{
 		for (size_t j = 0; j < FIELD_WIDTH; j++)
 		{
-
 			if (i < FRAME_HEIGHT || i >= FIELD_HEIGHT - FRAME_HEIGHT || j < FRAME_WIDTH || j >= FIELD_WIDTH - FRAME_WIDTH)
 			{
 				if (i < FRAME_HEIGHT)
@@ -121,9 +145,7 @@ void Field::FieldReset()
 				else
 				{
 					field_[i].line[j] = FieldBlockIndex::WALL;
-
 				}
-
 			}
 			else
 			{
