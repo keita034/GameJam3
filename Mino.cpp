@@ -17,7 +17,7 @@ void Mino::SetMino(size_t width, size_t height, int8_t value)
 	mino_[height][width] = value;
 }
 
-void Mino::Init(const Int2& pos, MinoType type, MinoColorType color, int8_t rot)
+void Mino::Init(const Int2& pos, MinoColorType color, int8_t rot)
 {
 	position_ = pos;
 	pushCount_ = 0;

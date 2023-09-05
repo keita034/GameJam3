@@ -4,6 +4,7 @@
 #include"Mino.h"
 
 #include<map>
+#include<string>
 
 struct Line
 {
@@ -55,12 +56,15 @@ public:
 
 	void SetMino(Mino* mino);
 
+	void LoadMino();
+
 private:
 
 	//マップチップのデータ
 	std::array<Line, FIELD_HEIGHT>field_;
 
-	std::unique_ptr<Mino> minos_;
+	std::map<std::string, std::unique_ptr<Mino>>minos_;
+	std::vector<std::string>minoFileNames;
 	Mino* mino_;
 
 };

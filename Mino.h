@@ -17,7 +17,7 @@ public:
 	/// <summary>
 	/// èâä˙âª
 	/// </summary>
-	void Init(const Int2& pos, MinoType type, MinoColorType color, int8_t rot = 0);
+	void Init(const Int2& pos, MinoColorType color, int8_t rot = 0);
 
 	/// <summary>
 	/// çXêV
@@ -47,6 +47,7 @@ public:
 		NUME,
 		BLOCK
 	};
+
 
 private:
 	bool isValid_ = false;
