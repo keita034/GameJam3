@@ -29,7 +29,7 @@ void Goal::Draw()
 
 Vec2 Goal::GetPos()
 {
-	return Vec2(position_.x,position_.y);
+	return Vec2(static_cast<float>(position_.x), static_cast<float>(position_.y));
 }
 
 Vec2 Goal::GetSize()

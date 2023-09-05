@@ -45,7 +45,7 @@ void Player::Move()
 		speed_.y += gravity;
 	}
 
-	float velocity;
+	int8_t velocity;
 	velocity = inputPtr_->key.GetHorizontal(KEY_INPUT_A, KEY_INPUT_D);
 	if (velocity == 0)
 	{
