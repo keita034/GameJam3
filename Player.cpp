@@ -149,6 +149,28 @@ bool Player::DownMoveCollision(float speed)
 
 			}
 		}
+		else if (field_->GetMaptChipData(downLeftX, downLeftY) == FieldBlockIndex::GHOST_BLOCK &&
+			field_->GetMaptChipData(downRightX, downRightY) == FieldBlockIndex::GHOST_BLOCK)
+
+		{
+			
+			while (1)
+			{
+				downLeftY = static_cast<int32_t>(((position_.y + size_.y - 1) + 1) / BLOCK_SIZE);
+				downRightY = static_cast<int32_t>(((position_.y + size_.y - 1) + 1) / BLOCK_SIZE);
+
+
+				if (field_->GetMaptChipData(downLeftX, downLeftY) == FieldBlockIndex::GHOST_BLOCK &&
+					field_->GetMaptChipData(downRightX, downRightY) == FieldBlockIndex::GHOST_BLOCK)
+				{
+					position_.y -= 1.0f;
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
 
 		return true;
 	}
@@ -197,7 +219,28 @@ bool Player::TopMoveCollision(float speed)
 
 			}
 		}
+		else if (field_->GetMaptChipData(topLeftX, topLeftY) == FieldBlockIndex::GHOST_BLOCK &&
+			field_->GetMaptChipData(topRightX, topRightY) == FieldBlockIndex::GHOST_BLOCK)
 
+		{
+
+			while (1)
+			{
+				topLeftY = static_cast<int32_t>(((position_.y + size_.y - 1) + 1) / BLOCK_SIZE);
+				topRightY = static_cast<int32_t>(((position_.y + size_.y - 1) + 1) / BLOCK_SIZE);
+
+
+				if (field_->GetMaptChipData(topLeftX, topLeftY) == FieldBlockIndex::GHOST_BLOCK &&
+					field_->GetMaptChipData(topRightX, topRightY) == FieldBlockIndex::GHOST_BLOCK)
+				{
+					position_.y += 1.0f;
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
 		return true;
 	}
 }
@@ -326,6 +369,12 @@ bool Player::GetCaughtHit()
 		return false;
 	}
 
+	if (field_->GetMaptChipData(downLeftX, downLeftY) == FieldBlockIndex::NONE &&
+		field_->GetMaptChipData(downRightX, downRightY) == FieldBlockIndex::NONE)
+	{
+		return false;
+	}
+
 	int32_t topLeftX = static_cast<int32_t>((position_.x - radius + 1) / BLOCK_SIZE);
 	int32_t topRightX = static_cast<int32_t>((position_.x + radius - 1) / BLOCK_SIZE);
 
@@ -334,6 +383,11 @@ bool Player::GetCaughtHit()
 
 	if (field_->GetMaptChipData(topLeftX, topLeftY) == FieldBlockIndex::NONE &&
 		field_->GetMaptChipData(topRightX, topRightY) == FieldBlockIndex::NONE)
+	{
+		return false;
+	}
+	if (field_->GetMaptChipData(topLeftX, topLeftY - 1) == FieldBlockIndex::NONE &&
+		field_->GetMaptChipData(topRightX, topRightY - 1) == FieldBlockIndex::NONE)
 	{
 		return false;
 	}
