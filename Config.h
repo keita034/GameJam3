@@ -39,7 +39,7 @@ const size_t MINO_SIZE = 5;
 
 const size_t MINO_FALL_INTERVAL_TIMER = 10;
 
-const size_t MINO_GRACE_TIME = 1000;
+const size_t MINO_GRACE_TIME = 200;
 
 const uint8_t GOAL_NUM = 5;
 
