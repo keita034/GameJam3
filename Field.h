@@ -58,6 +58,8 @@ public:
 
 	void LoadMino();
 
+	void MinoAppearance();
+
 private:
 
 	//マップチップのデータ
@@ -66,6 +68,7 @@ private:
 	std::map<std::string, std::unique_ptr<Mino>>minos_;
 	std::vector<std::string>minoFileNames;
 	Mino* mino_;
-
+	Mino* nextMino_;
+	std::vector<Int2>appearancePoint{ { 34,5 } ,{ 24,5 } };
 };
 

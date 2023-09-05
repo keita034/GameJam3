@@ -8,16 +8,19 @@ void Field::Init()
 {
 	LoadMino();
 
-	mino_ = minos_[minoFileNames[1]].get();
-
-	mino_->Init({ 34,5 }, GREEN);
-
 	Reset();
+
+	int32_t randNum = GetRand(minoFileNames.size() - 1);
+	mino_ = minos_[minoFileNames[randNum]].get();
+	randNum = GetRand(appearancePoint.size() - 1);
+	mino_->Init(appearancePoint[randNum], static_cast<MinoColorType>(GetRand(MINOCOLORTYPE_COUNT)), GetRand(4));
 }
 
 void Field::Update()
 {
 	FieldReset();
+
+	MinoAppearance();
 
 	if (mino_)
 	{
@@ -58,6 +61,10 @@ void Field::Draw()
 			else if (field_[i].line[j] == FieldBlockIndex::GHOST_BLOCK)
 			{
 				DrawBox(BLOCK_SIZE * j, BLOCK_SIZE * i, BLOCK_SIZE + BLOCK_SIZE * j, BLOCK_SIZE + BLOCK_SIZE * i, GetColor(255, 255, 255), true);
+			}
+			else if (field_[i].line[j] == FieldBlockIndex::ORANGE_BLOCK)
+			{
+				DrawBox(BLOCK_SIZE * j, BLOCK_SIZE * i, BLOCK_SIZE + BLOCK_SIZE * j, BLOCK_SIZE + BLOCK_SIZE * i, 0xfd7e00, true);
 			}
 		}
 	}
@@ -117,10 +124,10 @@ void Field::RightPush()
 					{
 						Int2 index = mino_->GetPosIndex(j, i);
 
-						if(field_[index.y].line[index.x + k] != FieldBlockIndex::NONE &&
+						if (field_[index.y].line[index.x + k] != FieldBlockIndex::NONE &&
 							field_[index.y].line[index.x + k] != FieldBlockIndex::GHOST_BLOCK)
 						{
-							pushNum = k-1;
+							pushNum = k - 1;
 							isBreak = true;
 							break;
 						}
@@ -235,6 +242,8 @@ void Field::SetMino(Mino* mino)
 						field_[index.y].line[index.x] = FieldBlockIndex::GREEN_BLOCK;
 						break;
 					case ORANGE:
+						field_[index.y].line[index.x] = FieldBlockIndex::ORANGE_BLOCK;
+
 						break;
 					default:
 						break;
@@ -293,5 +302,25 @@ void Field::LoadMino()
 			minos_[patrsFileName] = std::move(mino);
 			minoFileNames.push_back(patrsFileName);
 		}
+	}
+}
+
+void Field::MinoAppearance()
+{
+	if (mino_)
+	{
+		if (!nextMino_)
+		{
+			int32_t randNum = GetRand(minoFileNames.size() - 1);
+			nextMino_ = minos_[minoFileNames[randNum]].get();
+			randNum = GetRand(appearancePoint.size() - 1);
+			nextMino_->Init(appearancePoint[randNum], static_cast<MinoColorType>(GetRand(MINOCOLORTYPE_COUNT-1)), GetRand(4));
+		}
+
+	}
+	else
+	{
+		mino_ = nextMino_;
+		nextMino_ = nullptr;
 	}
 }

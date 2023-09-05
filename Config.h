@@ -51,6 +51,7 @@ enum FieldBlockIndex : int8_t
 	GREEN_BLOCK,
 	RED_BLOCK,
 	BLUE_BLOCK,
+	ORANGE_BLOCK,
 };
 
 enum MinoColorType
@@ -59,5 +60,7 @@ enum MinoColorType
 	RED,
 	GREEN,
 	ORANGE,
+
+	MINOCOLORTYPE_COUNT
 
 };
