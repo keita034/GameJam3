@@ -50,11 +50,6 @@ enum FieldBlockIndex : int8_t
 	BLUE_BLOCK,
 };
 
-enum MinoType
-{
-	I,
-};
-
 enum MinoColorType
 {
 	BLUE,

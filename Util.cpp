@@ -15,3 +15,10 @@ std::vector<std::string> GetFileNames(const std::string& folderPath_)
 
 	return lFileNames;
 }
+
+std::string GetFileName(std::string& path_)
+{
+	std::filesystem::path lFilePath = path_;
+
+	return lFilePath.stem().string();
+}

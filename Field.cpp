@@ -1,12 +1,16 @@
 #include "Field.h"
 
 #include<DxLib.h>
+#include"Util.h"
+#include<cassert>
 
 void Field::Init()
 {
-	minos_ = std::make_unique<Mino>();
-	mino_ = minos_.get();
-	mino_->Init({ 34,5 }, I, GREEN, 2);
+	LoadMino();
+
+	mino_ = minos_[minoFileNames[1]].get();
+
+	mino_->Init({ 34,5 }, GREEN);
 
 	Reset();
 }
@@ -241,4 +245,53 @@ void Field::SetMino(Mino* mino)
 		}
 	}
 
+}
+
+void Field::LoadMino()
+{
+	std::vector<std::string>patrsFilePaths = GetFileNames("Parts");
+
+	for (size_t i = 0; i < patrsFilePaths.size(); i++)
+	{
+		//データ
+		std::stringstream data;
+		//1行分も文字列を入れる変数
+		std::string line;
+		std::ifstream file(patrsFilePaths[i].c_str());
+		std::unique_ptr<Mino> mino = std::make_unique<Mino>();
+		std::string patrsFileName;
+
+		assert(file.is_open());
+
+		//ファイルの内容を文字列をストリームにコピー
+		data << file.rdbuf();
+
+		//ファイルを閉じる
+		file.close();
+
+		getline(data, line, '\n');
+		{
+			for (size_t i = 0; i < MINO_SIZE; i++)
+			{
+				std::istringstream lineStream(line);
+
+				for (size_t j = 0; j < MINO_SIZE; j++)
+				{
+					std::string num;
+
+					std::getline(lineStream, num, ',');
+
+					int8_t v = static_cast<int8_t>(std::atoi(num.c_str()));
+					mino->SetMino(i, j, v);
+				}
+
+				getline(data, line, '\n');
+			}
+
+			patrsFileName = GetFileName(patrsFilePaths[i]);
+
+			minos_[patrsFileName] = std::move(mino);
+			minoFileNames.push_back(patrsFileName);
+		}
+	}
 }
