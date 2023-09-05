@@ -190,7 +190,7 @@ void Field::LeftPush()
 						if (field_[index.y].line[index.x - k] != FieldBlockIndex::NONE &&
 							field_[index.y].line[index.x - k] != FieldBlockIndex::GHOST_BLOCK)
 						{
-							pushNum = -(k + 1);
+							pushNum = -(k - 1);
 							isBreak = true;
 							break;
 						}
@@ -346,7 +346,17 @@ void Field::MinoAppearance()
 	}
 	else
 	{
-		mino_ = nextMino_;
-		nextMino_ = nullptr;
+		if (nextMino_)
+		{
+			mino_ = nextMino_;
+			nextMino_ = nullptr;
+		}
+		else
+		{
+			int32_t randNum = GetRand(minoFileNames.size() - 1);
+			mino_ = minos_[minoFileNames[randNum]].get();
+			randNum = GetRand(appearancePoint.size() - 1);
+			mino_->Init(appearancePoint[randNum], static_cast<MinoColorType>(GetRand(MINOCOLORTYPE_COUNT - 1)), GetRand(4));
+		}
 	}
 }
