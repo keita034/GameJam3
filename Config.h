@@ -46,6 +46,8 @@ const uint8_t GOAL_NUM = 5;
 //ƒ~ƒm‰Ÿ‚¹‚é‰ñ”
 const uint8_t MINO_PUSH_NUM = 0xff;
 
+const uint8_t LINE_DESTROY_NUM = MAP_WIDTH / 2;
+
 enum FieldBlockIndex : int8_t
 {
 	NONE,

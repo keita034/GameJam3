@@ -13,7 +13,7 @@ void Field::Init()
 	int i = 1;
 	while (i * 5 + FRAME_WIDTH <= MAP_WIDTH)
 	{
-		Int2 temp(i * 5 + FRAME_WIDTH,5 );
+		Int2 temp(i * 5 + FRAME_WIDTH, 5);
 		appearancePoint.push_back(temp);
 		i++;
 	}
@@ -31,37 +31,14 @@ void Field::Update()
 
 	if (mino_)
 	{
-		if(!mino_->IsFall())
-		{
-			bool isBreak = false;
-			for (size_t i = 0; i < MINO_SIZE; i++)
-			{
-				for (size_t j = 0; j < MINO_SIZE; j++)
-				{
-					if (mino_->GetMino(i, j) == Mino::BlockIndex::BLOCK)
-					{
-						Int2 index = mino_->GetPosIndex(i, j);
-
-						if (field_[index.y + 1].line[index.x] != FieldBlockIndex::NONE)
-						{
-							isBreak = true;
-							break;
-						}
-					}
-
-				}
-			}
-
-			if (!isBreak)
-			{
-				mino_->Down();
-			}
-		}
+		MinoAdjustmenDown();
 
 		mino_->Update();
 
 		SetMino(mino_);
 	}
+
+	LineDestroy();
 }
 
 void Field::Draw()
@@ -388,4 +365,67 @@ void Field::MinoAppearance()
 			mino_->Init(appearancePoint[randNum], static_cast<MinoColorType>(GetRand(MINOCOLORTYPE_COUNT - 1)), GetRand(4));
 		}
 	}
+}
+
+void Field::MinoAdjustmenDown()
+{
+	if (!mino_->IsFall())
+	{
+		bool isBreak = false;
+
+		for (size_t i = 0; i < MINO_SIZE; i++)
+		{
+			for (size_t j = 0; j < MINO_SIZE; j++)
+			{
+				if (mino_->GetMino(i, j) == Mino::BlockIndex::BLOCK)
+				{
+					Int2 index = mino_->GetPosIndex(i, j);
+
+					if (field_[index.y + 1].line[index.x] != FieldBlockIndex::NONE)
+					{
+						isBreak = true;
+						break;
+					}
+				}
+
+			}
+		}
+
+		if (!isBreak)
+		{
+			mino_->Down();
+		}
+	}
+}
+
+void Field::LineDestroy()
+{
+	size_t destroyLine = 0;
+
+	for (size_t i = FRAME_HEIGHT; i < MAP_HEIGHT + FRAME_HEIGHT; i++)
+	{
+		if (field_[i].blockCount >= LINE_DESTROY_NUM)
+		{
+			for (size_t j = FRAME_WIDTH; j < MAP_WIDTH + FRAME_WIDTH; j++)
+			{
+				field_[i].line[j] = 0;
+				field_[i].blockCount = 0;
+			}
+
+			destroyLine = i;
+
+			Line tmp = field_[destroyLine];
+
+			for (size_t j = destroyLine; j >= FRAME_HEIGHT; j--)
+			{
+				field_[j] = field_[j - 1];
+			}
+
+			field_[FRAME_HEIGHT] = tmp;
+
+			break;
+		}
+	}
+
+
 }

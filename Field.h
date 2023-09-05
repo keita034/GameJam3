@@ -60,6 +60,10 @@ public:
 
 	void MinoAppearance();
 
+	void MinoAdjustmenDown();
+
+	void LineDestroy();
+
 private:
 
 	//マップチップのデータ
