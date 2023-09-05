@@ -43,6 +43,9 @@ const size_t MINO_GRACE_TIME = 200;
 
 const uint8_t GOAL_NUM = 5;
 
+//ƒ~ƒm‰Ÿ‚¹‚é‰ñ”
+const uint8_t MINO_PUSH_NUM = 2;
+
 enum FieldBlockIndex : int8_t
 {
 	NONE,

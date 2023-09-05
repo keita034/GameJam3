@@ -85,7 +85,7 @@ void Mino::Rotate()
 
 void Mino::Push(int32_t num)
 {
-	if (pushCount_ >= 1)
+	if (pushCount_ < MINO_PUSH_NUM)
 	{
 		position_.x += num;
 		pushCount_++;
