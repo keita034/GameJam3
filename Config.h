@@ -8,10 +8,10 @@
 #include"Int2.h"
 
 // ウィンドウ横幅
-const int32_t WIN_WIDTH = 1280;
+const int32_t WIN_WIDTH = 1536;
 
 // ウィンドウ縦幅
-const int32_t WIN_HEIGHT = 704;
+const int32_t WIN_HEIGHT = 864;
 
 //ブロックサイズ
 const int32_t BLOCK_SIZE = 32;
@@ -23,7 +23,7 @@ const size_t FIELD_WIDTH = WIN_WIDTH / BLOCK_SIZE;
 const size_t FIELD_HEIGHT = WIN_HEIGHT / BLOCK_SIZE;
 
 //フレームの横幅
-const size_t FRAME_WIDTH = 2;
+const size_t FRAME_WIDTH = 4;
 
 //フレームの縦幅
 const size_t FRAME_HEIGHT = 5;

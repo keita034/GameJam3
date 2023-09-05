@@ -11,7 +11,7 @@ void Player::Init(Input* input, int8_t* sceneStatus, Field* field)
 	speed_ = { 0,0 };
 	size_ = { BLOCK_SIZE - 2,BLOCK_SIZE - 2 };
 	position_ = { 900,300 };
-	respownPosition_ = { 100,300 };
+	respownPosition_ = { 300,300 };
 	for (auto& x : mapHit_)
 	{
 		for (auto& y : x)
@@ -311,7 +311,7 @@ bool Player::GetCaughtHit()
 	float radius = size_.x / 2.0f;
 
 
-	int32_t downLeftX = static_cast<int32_t>((position_.x - radius - 1) / BLOCK_SIZE);
+	int32_t downLeftX = static_cast<int32_t>((position_.x - radius + 1) / BLOCK_SIZE);
 	int32_t downRightX = static_cast<int32_t>((position_.x + radius - 1) / BLOCK_SIZE);
 
 	int32_t downLeftY = static_cast<int32_t>((position_.y + size_.y) / BLOCK_SIZE);
@@ -323,7 +323,7 @@ bool Player::GetCaughtHit()
 		return false;
 	}
 
-	int32_t topLeftX = static_cast<int32_t>((position_.x - radius - 1) / BLOCK_SIZE);
+	int32_t topLeftX = static_cast<int32_t>((position_.x - radius + 1) / BLOCK_SIZE);
 	int32_t topRightX = static_cast<int32_t>((position_.x + radius - 1) / BLOCK_SIZE);
 
 	int32_t topLeftY = static_cast<int32_t>((position_.y - size_.y) / BLOCK_SIZE);
