@@ -45,7 +45,20 @@ void Player::Move()
 		speed_.y += gravity;
 	}
 
-	LeftRightMoveCollision(inputPtr_->key.GetHorizontal(KEY_INPUT_A, KEY_INPUT_D) * speed_.x);
+	float velocity;
+	velocity = inputPtr_->key.GetHorizontal(KEY_INPUT_A, KEY_INPUT_D);
+	if (velocity == 0)
+	{
+		if (inputPtr_->joypad.GetLeftX() > 0)
+		{
+			velocity = 1;
+		}
+		else if (inputPtr_->joypad.GetLeftX() < 0)
+		{
+			velocity = -1;
+		}
+	}
+	LeftRightMoveCollision( velocity * speed_.x);
 	//position_.x += inputPtr_->key.GetHorizontal(KEY_INPUT_A, KEY_INPUT_D);
 }
 
@@ -53,7 +66,7 @@ void Player::Jump()
 {
 	if (landing_)
 	{
-		if (inputPtr_->key.GetKeyTrigger(KEY_INPUT_SPACE))
+		if (inputPtr_->key.GetKeyTrigger(KEY_INPUT_SPACE) || inputPtr_->joypad.GetButtonTrigger(PAD_INPUT_A))
 		{
 			landing_ = false;
 			speed_.y = -20.f;
@@ -67,9 +80,9 @@ void Player::Jump()
 
 void Player::Push()
 {
-	if (inputPtr_->key.GetKeyTrigger(KEY_INPUT_X))
+	if (inputPtr_->key.GetKeyTrigger(KEY_INPUT_X) || inputPtr_->joypad.GetButtonTrigger(PAD_INPUT_B))
 	{
-		if (inputPtr_->key.GetKey(KEY_INPUT_D))
+		if (inputPtr_->key.GetKey(KEY_INPUT_D) || inputPtr_->joypad.GetLeftX() > 0)
 		{
 			if (RightCollision())
 			{
@@ -77,7 +90,7 @@ void Player::Push()
 			}
 		}
 
-		if (inputPtr_->key.GetKey(KEY_INPUT_A))
+		if (inputPtr_->key.GetKey(KEY_INPUT_A) || inputPtr_->joypad.GetLeftX() < 0)
 		{
 			if (LeftCollision())
 			{
