@@ -6,6 +6,7 @@
 #include<list>
 #include<memory>
 #include"Int2.h"
+#include <DxLib.h>
 
 // ウィンドウ横幅
 const int32_t WIN_WIDTH = 1536;
@@ -39,6 +40,8 @@ const size_t MINO_SIZE = 5;
 const size_t MINO_FALL_INTERVAL_TIMER = 10;
 
 const size_t MINO_GRACE_TIME = 1000;
+
+const uint8_t GOAL_NUM = 5;
 
 enum FieldBlockIndex : int8_t
 {

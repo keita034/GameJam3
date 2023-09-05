@@ -112,9 +112,28 @@ bool Vec2::operator>(const Vec2& v)
 	return false;
 }
 
+bool Vec2::operator>=(const Vec2& v)
+{
+	if (this->x >= v.x && this->y >= v.y)
+	{
+		return true;
+	}
+
+	return false;
+}
+
 bool Vec2::operator<(const Vec2& v)
 {
 	if (this->x < v.x && this->y < v.y)
+	{
+		return true;
+	}
+	return false;
+}
+
+bool Vec2::operator<=(const Vec2& v)
+{
+	if (this->x <= v.x && this->y <= v.y)
 	{
 		return true;
 	}

@@ -15,6 +15,7 @@ class SceneManager
 	std::unique_ptr<Field> field_;
 	std::unique_ptr<Input> input_;
 	std::unique_ptr<Player> player_;
+	std::unique_ptr<Goal> goal_;
 public:
 	void Init();
 	void Update();

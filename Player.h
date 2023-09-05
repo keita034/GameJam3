@@ -3,7 +3,8 @@
 #include "Config.h"
 #include "Vec2.h"
 #include "Input.h"
-#include"Field.h"
+#include "Field.h"
+#include "Goal.h"
 
 class Player
 {
@@ -33,15 +34,17 @@ class Player
 	Vec2 size_;
 	Input* inputPtr_;
 	Field* field_;
+	Goal* goal_;
 	bool landing_;
 	bool isGround = false;;
 	uint16_t actionStatus_;
 	std::array<std::array<uint8_t, 5>, 5> mapHit_;
 	float gravity = 1.0f;
 	const int8_t* sceneStatus_;
+	size_t point_;
 public:
 	void SetInput(Input* input);
-	void Init(Input* input, int8_t* sceneStatus, Field* field);
+	void Init(Input* input, int8_t* sceneStatus, Field* field,Goal* goal);
 	void Move();
 	void Jump();
 	void Push();
@@ -61,6 +64,7 @@ public:
 	bool LeftCollision();
 	bool RightCollision();
 
+	bool IsGoal();
 	/// <summary>
 	/// yのスピードを足しながら当たり判定処理
 	/// </summary>

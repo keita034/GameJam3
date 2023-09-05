@@ -74,6 +74,24 @@ bool Int2::operator<(const Int2& v)
 	return false;
 }
 
+bool Int2::operator==(const Int2& v)
+{
+	if (x == v.y && y == v.y)
+	{
+		return true;
+	}
+	return false;
+}
+
+bool Int2::operator!=(const Int2& v)
+{
+	if (x != v.y || y != v.y)
+	{
+		return true;
+	}
+	return false;
+}
+
 //Vec2 ƒNƒ‰ƒX‚É‘®‚³‚È‚¢ŠÖ”ŒQ
 //“ñ€‰‰ŽZŽq
 const Int2 operator+(const Int2& v1, const Int2& v2)

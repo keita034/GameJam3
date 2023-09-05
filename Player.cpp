@@ -1,11 +1,12 @@
 #include "Player.h"
+#include "Util.h"
 
 void Player::SetInput(Input* input)
 {
 	inputPtr_ = input;
 }
 
-void Player::Init(Input* input, int8_t* sceneStatus, Field* field)
+void Player::Init(Input* input, int8_t* sceneStatus, Field* field,Goal* goal)
 {
 	landing_ = true;
 	speed_ = { 0,0 };
@@ -25,6 +26,7 @@ void Player::Init(Input* input, int8_t* sceneStatus, Field* field)
 	inputPtr_ = input;
 	sceneStatus_ = sceneStatus;
 	field_ = field;
+	goal_ = goal;
 
 	speed_.y = 1.0f;
 	speed_.x = 3.0f;
@@ -91,6 +93,7 @@ void Player::UpData()
 	Move();
 	Push();
 	Deth();
+	IsGoal();
 }
 
 void Player::Draw()
@@ -419,6 +422,17 @@ bool Player::RightCollision()
 	{
 		return true;
 	}
+}
+
+bool Player::IsGoal()
+{
+	if (BoxCollision(position_, size_, goal_->GetPos(), goal_->GetSize()))
+	{
+		point_++;
+		goal_->Choice();
+		return true;
+	}
+	return false;
 }
 
 int32_t Player::DownTopMoveCollision(float speed)

@@ -23,6 +23,8 @@ public:
 	Int2& operator/=(const Int2& v);
 	bool operator>(const Int2& v);
 	bool operator<(const Int2& v);
+	bool operator==(const Int2& v);
+	bool operator!=(const Int2& v);
 };
 
 //2€‰‰ŽZŽq

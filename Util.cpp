@@ -1,5 +1,5 @@
 #include "Util.h"
-
+#include "Vec2.h"
 std::vector<std::string> GetFileNames(const std::string& folderPath_)
 {
 	std::filesystem::directory_iterator lDirectoryIterator(folderPath_), lIteratorEnd;
@@ -14,4 +14,19 @@ std::vector<std::string> GetFileNames(const std::string& folderPath_)
 	}
 
 	return lFileNames;
+}
+
+bool BoxCollision(Vec2 obj1Pos, Vec2 obj1size, Vec2 obj2Pos, Vec2 obj2size)
+{
+	Vec2 Hit = obj2Pos - obj1Pos;
+	Vec2 Size = obj1size + obj2size;
+	Size.x /= 2;
+	Hit.x = abs(Hit.x);
+	Hit.y = abs(Hit.y);
+	if (Hit <= Size)
+	{
+		return true;
+	}
+
+	return false;
 }
