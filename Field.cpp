@@ -10,6 +10,13 @@ void Field::Init()
 
 	Reset();
 
+	int i = 1;
+	while (i * 5 + FRAME_WIDTH <= MAP_WIDTH)
+	{
+		Int2 temp(i * 5 + FRAME_WIDTH,5 );
+		appearancePoint.push_back(temp);
+		i++;
+	}
 	int32_t randNum = GetRand(minoFileNames.size() - 1);
 	mino_ = minos_[minoFileNames[randNum]].get();
 	randNum = GetRand(appearancePoint.size() - 1);

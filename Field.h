@@ -69,6 +69,6 @@ private:
 	std::vector<std::string>minoFileNames;
 	Mino* mino_;
 	Mino* nextMino_;
-	std::vector<Int2>appearancePoint{ { 34,5 } ,{ 24,5 } };
+	std::vector<Int2>appearancePoint{};
 };
 
