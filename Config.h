@@ -26,7 +26,7 @@ const size_t FIELD_HEIGHT = WIN_HEIGHT / BLOCK_SIZE;
 const size_t FRAME_WIDTH = 2;
 
 //フレームの縦幅
-const size_t FRAME_HEIGHT = 2;
+const size_t FRAME_HEIGHT = 5;
 
 //マップの横幅
 const size_t MAP_WIDTH = FIELD_WIDTH - FRAME_WIDTH * 2;
